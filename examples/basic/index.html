@@ -1,30 +1,67 @@
 <!doctype html>
 <html lang="en">
+
 <head>
 	<title>lil-gui - Basic Example</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../../dist/lil-gui.css" />
+	<style>
+		.lil-gui-head {
+			height: 25px;
+			cursor: move;
+		}
+
+		.lil-gui-head-close {
+			height: 100% !important;
+			width: 30px !important;
+			float: right;
+			font-size: 16px !important;
+		}
+
+		.lil-close-btn {
+			color: red !important;
+		}
+
+		.lil-gui .children {
+			padding-left: 6px;
+		}
+
+		.lil-gui .controller .widget .image-icon {
+			max-width: 30px;
+			max-height: 30px;
+		}
+
+		.lil-gui .controller .widget .image-btn {
+			max-width: 50px;
+			margin-left: 4px;
+		}
+
+	</style>
 </head>
+
 <body>
-	<script type="module">
+	<script src="../../dist/lil-gui.umd.js"></script>
+	<script>
 
-		import GUI from '../../dist/lil-gui.esm.js';
+		// import GUI from '../../dist/lil-gui.esm.js';
+		const { GUI } = lil;
 
-		const gui = new GUI();
+		const gui = new GUI({ width: 350, header: true, title: '地图配置' });
 
-		const folder = gui.addFolder( 'Folder' );
+		const folder = gui.addFolder('Folder');
 
 		const folderParams = {
 			number: 0.5,
 			boolean: false,
 			color: '#0cf',
-			function() { console.log( 'hi' ) }
+			function() { console.log('hi') },
 		};
 
-		folder.add( folderParams, 'number', 0, 1 );
-		folder.add( folderParams, 'boolean' );
-		folder.addColor( folderParams, 'color' );
-		folder.add( folderParams, 'function' );
+		folder.add(folderParams, 'number', 0, 1);
+		folder.add(folderParams, 'boolean');
+		folder.addColor(folderParams, 'color');
+		// folder.add(folderParams, 'function').label('hello')
 
 		const params = {
 			options: 10,
@@ -32,16 +69,27 @@
 			string: 'lil-gui',
 			number: 0,
 			color: '#aa00ff',
-			function() { console.log( 'hi' ) }
+			function() { console.log('hi') },
+			image: './避难场所.png',
+			button: '保存数据'
 		};
 
-		gui.add( params, 'options', { Small: 1, Medium: 10, Large: 100 } );
-		gui.add( params, 'boolean' );
-		gui.add( params, 'string' );
-		gui.add( params, 'number' );
-		gui.addColor( params, 'color' );
-		gui.add( params, 'function' ).name( 'Custom Name' );
+		gui.add(params, 'options', { Small: 1, Medium: 10, Large: 100 });
+		gui.add(params, 'boolean');
+		gui.add(params, 'string');
+		gui.add(params, 'number');
+		gui.addColor(params, 'color').onChange(value => {
+			console.log(value);
+		})
+		// gui.add(params, 'function').name('Custom Name').label('hello')
+		gui.addImage(params, 'image').label('选择图片').onChange((value) => {
+			console.log(value)
+		})
+		gui.addButton(params, 'button').label('保存数据').onClick((value) => {
+			console.log(value)
+		})
 
 	</script>
 </body>
+
 </html>
