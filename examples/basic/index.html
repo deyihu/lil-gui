@@ -36,7 +36,6 @@
 			max-width: 50px;
 			margin-left: 4px;
 		}
-
 	</style>
 </head>
 
@@ -88,6 +87,7 @@
 		gui.addButton(params, 'button').label('保存数据').onClick((value) => {
 			console.log(value)
 		})
+		gui.addSlider(params, 'number', [0, 100]);
 
 	</script>
 </body>
